@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Moto Parts Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Your Cart</h1>
+        <nav>
+            <a href="homepage.html">Home</a>
+            <a href="carted.html">Your Cart</a>
+            <a href="about.html">About Us</a>
+          
+        </nav>
+    </header>
+
+    <section id="cart">
+        <h2>Items in Your Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div id="total-amount">
+            <h3>Total Amount: Rs. <span id="total-price">0</span></h3>
+        </div>
+        <button id="checkout">Checkout</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Moto Parts Store. All rights reserved by Anup.</p>
+    </footer>
+
+    <script>
+        // Function to update the cart UI and calculate total price
+        function updateCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartDiv = document.getElementById("cart-items");
+            const totalPriceDiv = document.getElementById("total-price");
+            let totalAmount = 0;
+            cartDiv.innerHTML = ""; // Clear existing items
+
+            cart.forEach((item, index) => {
+                const div = document.createElement("div");
+                div.classList.add("cart-item");
+                div.innerHTML = `
+                    <p>${item.name} (x${item.quantity}) - Rs. ${item.totalPrice}</p>
+                    <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartDiv.appendChild(div);
+                totalAmount += item.totalPrice;
+            });
+
+            totalPriceDiv.textContent = totalAmount; // Update the total price
+        }
+
+        // Function to remove an item from the cart
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Remove the item from the cart
+            cart.splice(index, 1);
+
+            // Update the cart in localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Update the UI after removal
+            updateCart();
+        }
+
+        // Update the cart when the page loads
+        updateCart();
+    </script>
+</body>
+</html>

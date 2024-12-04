@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Moto Parts Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Moto Parts Store</h1>
+        <nav>
+            <a href="homepage.html">Home</a>
+             <a href="carted.html">Your Cart</a>
+            <a href="about.html">About Us</a>
+           
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h2>Welcome to Moto Parts Store</h2>
+        <p>Helmets, Gloves, Tyres, and More!</p>
+    </section>
+
+    <section id="products">
+        <h2>Featured Products</h2>
+        <div class="product">
+            <img src="C:\Users\User\OneDrive\Desktop\youth.np\helmet.jpg" alt="Helmet">
+            <h3>Stylish Helmet</h3>
+            <p>Price: Rs. 4,500</p>
+            <button onclick="addToCart('Stylish Helmet', 4500)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\User\OneDrive\Desktop\youth.np\gloves.jpg" alt="Gloves">
+            <h3>Riding Gloves</h3>
+            <p>Price: Rs.450</p>
+            <button onclick="addToCart('Riding Gloves', 450)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\User\OneDrive\Desktop\youth.np\tyre.jpg" alt="Tyres">
+            <h3>All-Weather Tyres</h3>
+            <p>Price: Rs. 4,500</p>
+            <button onclick="addToCart('All-Weather Tyres', 4500)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\User\OneDrive\Desktop\youth.np\cover.jpg" alt="Cover">
+            <h3>Rain Coat</h3>
+            <p>Price: Rs. 1,500</p>
+            <button onclick="addToCart('cover', 1500)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\User\OneDrive\Desktop\youth.np\filter.jpg" alt="filter">
+            <h3>Filter</h3>
+            <p>Price: Rs. 300</p>
+            <button onclick="addToCart('Filter', 300)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\User\OneDrive\Desktop\youth.np\Sparkplug.jpg" alt="plug">
+            <h3>Sparkplug</h3>
+            <p>Price: Rs. 200</p>
+            <button onclick="addToCart('plug', 200)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\User\OneDrive\Desktop\youth.np\mirror.jpg" alt="Side mirror">
+            <h3>Best Side Mirror</h3>
+            <p>Price: Rs. 100</p>
+            <button onclick="addToCart('Best Side Mirror', 1000)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\User\OneDrive\Desktop\youth.np\glove.jpg" alt="Gloves">
+            <h3>Normal Gloves</h3>
+            <p>Price: Rs.100</p>
+            <button onclick="addToCart('Normal Gloves', 100)">Add to Cart</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Moto Parts Store. All rights reserved by Anup.</p>
+    </footer>
+
+    <script>
+        // Function to add items to the cart and store them in localStorage
+        function addToCart(productName, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Check if the product is already in the cart
+            const existingProductIndex = cart.findIndex(item => item.name === productName);
+
+            if (existingProductIndex !== -1) {
+                // If product exists, increase the quantity and update total price
+                cart[existingProductIndex].quantity += 1;
+                cart[existingProductIndex].totalPrice = cart[existingProductIndex].quantity * cart[existingProductIndex].price;
+            } else {
+                // Otherwise, add a new item to the cart with quantity 1
+                const item = {
+                    name: productName,
+                    price: price,
+                    quantity: 1,
+                    totalPrice: price
+                };
+                cart.push(item);
+            }
+
+            // Save the updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Optionally, redirect to cart page
+            window.location.href = 'carted.html';  // Redirect to the cart page
+        }
+    </script>
+</body>
+</html>
